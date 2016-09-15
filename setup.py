@@ -3,7 +3,7 @@ import django_ffmpeg
 
 setup(
     name = "django-ffmpeg",
-    version = djsphinx.__version__,
+    version = django_ffmpeg.__version__,
     packages = ["django_ffmpeg"],
     url = 'https://github.com/PixxxeL/django-ffmpeg',
     author = 'pixel',
