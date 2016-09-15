@@ -52,88 +52,88 @@ msgstr "Совпадение по"
 msgid ""
 "Video param to detected from if this command should be used to convert given "
 "video"
-msgstr ""
+msgstr "Параметр для определения конвертируемого файла по его имени или расширению"
 
 #: django_ffmpeg/models.py:46
 msgid "RegExp to match video file"
-msgstr ""
+msgstr "Регулярное выражение"
 
 #: django_ffmpeg/models.py:49
-msgid "Enabled?"
-msgstr ""
+msgid "Enabled"
+msgstr "Активная"
 
 #: django_ffmpeg/models.py:53
 msgid "System command to convert video"
-msgstr ""
+msgstr "Команда для конвертации видео"
 
 #: django_ffmpeg/models.py:59 repo/django_ffmpeg/models.py:128
 msgid "Without dot: `.`"
-msgstr ""
+msgstr "Без точки: `.`"
 
 #: django_ffmpeg/models.py:66
 msgid "Video convert command"
-msgstr ""
+msgstr "Команда для конвертации видео"
 
 #: django_ffmpeg/models.py:67
 msgid "Video convert commands"
-msgstr ""
+msgstr "Команды для конвертации видео"
 
 #: django_ffmpeg/models.py:71
 msgid "Pending convert"
-msgstr ""
+msgstr "Ожидает конвертации"
 
 #: django_ffmpeg/models.py:72
 msgid "Convert started"
-msgstr ""
+msgstr "Конвертация начата"
 
 #: django_ffmpeg/models.py:73
 msgid "Converted"
-msgstr ""
+msgstr "Сконвертировано"
 
 #: django_ffmpeg/models.py:74
 msgid "Not converted due to error"
-msgstr ""
+msgstr "Не сконвертировано из-за ошибки"
 
 #: django_ffmpeg/models.py:83
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: django_ffmpeg/models.py:86
 msgid "Video file"
-msgstr ""
+msgstr "Видео файл"
 
 #: django_ffmpeg/models.py:90
 msgid "Thumbnail image"
-msgstr ""
+msgstr "Миниатюра"
 
 #: django_ffmpeg/models.py:95
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: django_ffmpeg/models.py:99
 msgid "Created time"
-msgstr ""
+msgstr "Создано"
 
 #: django_ffmpeg/models.py:104
 msgid "Video conversion status"
-msgstr ""
+msgstr "Статус конвертации"
 
 #: django_ffmpeg/models.py:109
 msgid "Convert time"
-msgstr ""
+msgstr "Время конвертации"
 
 #: django_ffmpeg/models.py:113
 msgid "Message from last converting command"
-msgstr ""
+msgstr "Вывод последней команды конвертации"
 
 #: django_ffmpeg/models.py:117
 msgid "Uploaded by"
-msgstr ""
+msgstr "Загружено"
 
 #: django_ffmpeg/models.py:121
 msgid "Meta info about original video"
-msgstr ""
+msgstr "Метаинформация об исходном видео"
 
 #: django_ffmpeg/models.py:150
 msgid "Video"
-msgstr ""
+msgstr "Видео"
