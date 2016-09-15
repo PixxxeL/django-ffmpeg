@@ -10,18 +10,23 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 
-FFMPEG_PRE_DIR = getattr(settings, 'FFMPEG_PRE_DIR', 'videos')
-FFMPEG_ORIG_VIDEO = FFMPEG_PRE_DIR + '/' + getattr(settings, 'FFMPEG_ORIG_VIDEO', 'orig')
-FFMPEG_THUMB_VIDEO = FFMPEG_PRE_DIR + '/' + getattr(settings, 'FFMPEG_THUMB_VIDEO', 'thumb')
-FFMPEG_CONV_VIDEO = FFMPEG_PRE_DIR + '/' + getattr(settings, 'FFMPEG_CONV_VIDEO', 'conv')
+FFMPEG_PRE_DIR = getattr(settings, 'FFMPEG_PRE_DIR', 'videos').strip('\\/')
+FFMPEG_ORIG_VIDEO = getattr(settings, 'FFMPEG_ORIG_VIDEO', 'orig').strip('\\/')
+FFMPEG_THUMB_VIDEO = getattr(settings, 'FFMPEG_THUMB_VIDEO', 'thumb').strip('\\/')
+FFMPEG_CONV_VIDEO = getattr(settings, 'FFMPEG_CONV_VIDEO', 'conv').strip('\\/')
 
 
-def path_and_rename(path):
-    def wrapper(instance, filename):
-        ext = filename.split('.')[-1][-5:]
-        filename = '%s.%s' % (uuid4().hex, ext)
-        return os.path.join(path, filename)
-    return wrapper
+def filename_normalize(filename):
+    ext = filename.split('.')[-1]
+    return '%s.%s' % (uuid4().hex, ext)
+
+
+def video_file_path(instance, filename):
+    return '%s/%s/%s' % (FFMPEG_PRE_DIR, FFMPEG_ORIG_VIDEO, filename_normalize(filename),)
+
+
+def thumb_file_path(instance, filename):
+    return '%s/%s/%s' % (FFMPEG_PRE_DIR, FFMPEG_THUMB_VIDEO, filename_normalize(filename),)
 
 
 CONVERTING_COMMAND_MATCH_CHOICES = (
@@ -52,9 +57,14 @@ class ConvertingCommand(models.Model):
         verbose_name=_('System command to convert video'),
         help_text = 'Example: /usr/bin/avconv -nostats -y -i %(input_file)s -acodec libmp3lame -ar 44100 -f flv %(output_file)s',
     )
+    convert_extension = models.CharField(
+        max_length=5,
+        verbose_name=_('Extension'),
+        help_text = _('Without dot: `.`'),
+    )
 
     def __unicode__(self):
-        return u'%s "%s..."' % (self.sort_pos, self.command[0:50])
+        return self.command[0:50]
 
     class Meta:
         verbose_name = _(u'Video convert command')
@@ -78,11 +88,11 @@ class Video(models.Model):
     )
     video = models.FileField(
         verbose_name=_('Video file'),
-        upload_to=path_and_rename(FFMPEG_ORIG_VIDEO),
+        upload_to=video_file_path,
     )
     thumb = models.ImageField(
         verbose_name=_('Thumbnail image'),
-        upload_to=path_and_rename(FFMPEG_THUMB_VIDEO),
+        upload_to=thumb_file_path,
         null=True, blank=True,
     )
     description = models.TextField(
@@ -119,14 +129,23 @@ class Video(models.Model):
     convert_extension = models.CharField(
         max_length=5,
         verbose_name=_('Extension'),
-        help_text = _('Without dot: `.`')
+        help_text = _('Without dot: `.`'),
+        null=True, editable=False,
     )
 
     @property
     def converted_path(self):
-        filepath = str(self.video.file) # fix it
+        if not self.convert_extension:
+            return None
+        filepath = self.video.path
         filepath = filepath.replace(FFMPEG_ORIG_VIDEO, FFMPEG_CONV_VIDEO)
         return re.sub(r'[^\.]{1,10}$', self.convert_extension, filepath)
+
+    @property
+    def thumb_video_path(self):
+        filepath = self.video.path
+        filepath = filepath.replace(FFMPEG_ORIG_VIDEO, FFMPEG_THUMB_VIDEO)
+        return re.sub(r'[^\.]{1,10}$', 'jpg', filepath)
 
     def __unicode__(self):
         return self.title

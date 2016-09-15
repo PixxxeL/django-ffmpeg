@@ -32,14 +32,16 @@ class AdminVideoWidget(AdminFileWidget):
 class VideoAdminForm(ModelForm):
     class Meta:
         model = Video
+        fields = '__all__'
         widgets = {
             'video': AdminVideoWidget,
         }
 
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'convert_status')
-    readonly_fields = ('convert_status', 'last_convert_msg')
+    list_display = ('title', 'created_at', 'convert_status', 'converted_at')
+    list_display_links = ('title',)
+    readonly_fields = ('convert_status', 'last_convert_msg', 'convert_extension')
     form = VideoAdminForm
     def save_model(self, request, obj, form, change):
         if 'video' in form.changed_data and change:

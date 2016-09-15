@@ -36,7 +36,7 @@ Ubuntu install:
 pip install django-ffmpeg
 ```
 
-You may reference on `django_ffmpeg.Video`
+Now you may reference on `django_ffmpeg.Video`
 
 ## Todo
 *

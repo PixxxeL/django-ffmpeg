@@ -2,23 +2,28 @@
 
 import logging
 import re
-import os
-import commands
+import subprocess
 import datetime
+import time
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.utils.encoding import smart_text
 
-from django_ffmpeg.models import Video, ConvertingCommand, FFMPEG_ORIG_VIDEO, FFMPEG_CONV_VIDEO
+from django_ffmpeg.models import Video, ConvertingCommand
 
 
 class Command(BaseCommand):
 
-    args = 'no arguments!'
+    args = 'no arguments'
     help = u'Converts unconverted video'
     _log = None
 
     def handle(self, *args, **options):
+
+        start = time.time()
+        self._logger()
+
         # Choosing unconverted video
         try:
             video = Video.objects.filter(convert_status='pending')[0]
@@ -28,7 +33,7 @@ class Command(BaseCommand):
         video.convert_status = 'started'
         video.save()
 
-        filepath = str(video.video.file)
+        filepath = video.video.path
         full_name = filepath.split('/')[-1]
         parts = full_name.split('.')
         name = '.'.join(parts[:-1])
@@ -53,23 +58,39 @@ class Command(BaseCommand):
             video.save()
             return
 
+        video.convert_extension = cmd.convert_extension
         try:
-            params = {
+            c = cmd.command % {
                 'input_file': filepath,
-                'output_file': video.converted_path
+                'output_file': video.converted_path,
             }
-            output = commands.getoutput(cmd.command % params)
-        except:
+            self._log.info('Convert video command: %s' % c)
+            p = subprocess.Popen(c, stdout=subprocess.PIPE)
+            output = p.stdout.read()
+            self._log.info('Convert video result: %s' % output)
+        except Exception as e:
+            self._log.error('Convert error: %s' % e)
             video.convert_status = 'error'
             video.last_convert_msg = u'Exception while converting'
             video.save()
             raise
 
+        try:
+            if not video.thumb:
+                cmd = 'ffmpeg -hide_banner -nostats -i %s -frames:v 1 -ss 0 %s' % (
+                    filepath, video.thumb_video_path,
+                )
+                subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                self._log.info('Create thumbnail command: %s' % cmd)
+        except:
+            pass
+
         video.convert_status = 'converted'
-        video.last_convert_msg = output
+        video.last_convert_msg = smart_text(output)
         video.converted_at = datetime.datetime.now()
         video.save()
-        self._log.info('Video converted')
+        self._log.info('Job finished at: %s s\n' % (time.time() - start))
+
 
     def _logger(self):
         '''
