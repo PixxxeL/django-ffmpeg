@@ -9,11 +9,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-
-FFMPEG_PRE_DIR = getattr(settings, 'FFMPEG_PRE_DIR', 'videos').strip('\\/')
-FFMPEG_ORIG_VIDEO = getattr(settings, 'FFMPEG_ORIG_VIDEO', 'orig').strip('\\/')
-FFMPEG_THUMB_VIDEO = getattr(settings, 'FFMPEG_THUMB_VIDEO', 'thumb').strip('\\/')
-FFMPEG_CONV_VIDEO = getattr(settings, 'FFMPEG_CONV_VIDEO', 'conv').strip('\\/')
+from django_ffmpeg.defaults import *
 
 
 def filename_normalize(filename):

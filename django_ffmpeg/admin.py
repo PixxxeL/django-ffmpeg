@@ -18,12 +18,9 @@ class AdminVideoWidget(AdminFileWidget):
             parts = html.split('<br />')
             html = u'<p class="file-upload">'
             if value.instance.convert_status == 'converted':
-                html += u'''
-                Код вставки:
-                <textarea style="width: 527px;" rows=1>&lt;iframe width="" height="" src=""&gt;&lt;/iframe&gt;</textarea><br />
-                ''' % _('Embed code')
+                html += _('Video %(path)s converted<br />') % {'path':value}
             else:
-                html += _('Video %s not converted yet<br />') % value
+                html += _('Video %(path)s not converted yet<br />') % {'path':value}
 
             html = mark_safe(html+parts[1])
         return html

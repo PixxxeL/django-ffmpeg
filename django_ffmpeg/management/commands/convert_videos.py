@@ -3,14 +3,17 @@
 import logging
 import re
 import subprocess
+import commands
 import datetime
 import time
+import os
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.utils.encoding import smart_text
 
 from django_ffmpeg.models import Video, ConvertingCommand
+from django_ffmpeg.defaults import FFMPEG_CONVERTER
 
 
 class Command(BaseCommand):
@@ -64,12 +67,11 @@ class Command(BaseCommand):
                 'input_file': filepath,
                 'output_file': video.converted_path,
             }
-            self._log.info('Convert video command: %s' % c)
-            p = subprocess.Popen(c, stdout=subprocess.PIPE)
-            output = p.stdout.read()
-            self._log.info('Convert video result: %s' % output)
+            self._log.info('Convert video command: %(cmd)s' % {'cmd':c})
+            output = self._cli(c)
+            self._log.info('Convert video result: %(result)s' % {'result':output})
         except Exception as e:
-            self._log.error('Convert error: %s' % e)
+            self._log.error('Convert error: %(error)s' % {'error':e})
             video.convert_status = 'error'
             video.last_convert_msg = u'Exception while converting'
             video.save()
@@ -77,11 +79,13 @@ class Command(BaseCommand):
 
         try:
             if not video.thumb:
-                cmd = 'ffmpeg -hide_banner -nostats -i %s -frames:v 1 -ss 0 %s' % (
-                    filepath, video.thumb_video_path,
-                )
-                subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                self._log.info('Create thumbnail command: %s' % cmd)
+                cmd = '%(app)s -hide_banner -nostats -i %(in_file)s -frames:v 1 -ss 0 %(out_file)s' % {
+                    'app':FFMPEG_CONVERTER,
+                    'in_file':filepath,
+                    'out_file':video.thumb_video_path,
+                }
+                self._cli(c, True)
+                self._log.info('Create thumbnail command: %(cmd)s' % {'cmd':cmd})
         except:
             pass
 
@@ -89,7 +93,20 @@ class Command(BaseCommand):
         video.last_convert_msg = smart_text(output)
         video.converted_at = datetime.datetime.now()
         video.save()
-        self._log.info('Job finished at: %s s\n' % (time.time() - start))
+        self._log.info('Job finished at: %(time)s s\n' % {'time':time.time() - start})
+
+
+    def _cli(self, cmd, without_output=False):
+        if os.name == 'posix':
+            import commands
+            return commands.getoutput(cmd)
+        else:
+            import subprocess
+            if without_output:
+                subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            else:
+                p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+                return p.stdout.read()
 
 
     def _logger(self):
