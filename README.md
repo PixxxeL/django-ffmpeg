@@ -24,6 +24,8 @@ or set another existing directory names by `FFMPEG_PRE_DIR`, `FFMPEG_ORIG_VIDEO`
 
 Set `FFMPEG_CONVERTER` to path of the converter or use default `/usr/bin/ffmpeg`.
 
+Add `'django_ffmpeg'` to `INSTALLED_APPS` and execute `python manage.py migrate`
+
 ## Dependencies
 
 You must have [Ffmpeg](https://ffmpeg.org/) (or any other) utilit for converting video.
