@@ -1,139 +1,134 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2016 iksel@mail.ru
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <piksel@mail.ru>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.0.2\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-16 09:18+0500\n"
-"PO-Revision-Date: 2016-09-16 09:18+0500\n"
-"Last-Translator: pixel <piksel@mail.ru>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ru\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: admin.py:21
 #, python-format
 msgid "Video %(path)s converted<br />"
-msgstr "Видео %(path)s конвертировано<br />"
+msgstr ""
 
 #: admin.py:23
 #, python-format
 msgid "Video %(path)s not converted yet<br />"
-msgstr "Видео %(path)s еще не конвертировано"
+msgstr ""
 
 #: app.py:9 models.py:151
 msgid "Videos"
-msgstr "Видео"
+msgstr ""
 
 #: models.py:29 models.py:58 models.py:127
 msgid "Extension"
-msgstr "Расширение"
+msgstr ""
 
 #: models.py:30
 msgid "File name"
-msgstr "Имя файла"
+msgstr ""
 
 #: models.py:39
 msgid "Match by"
-msgstr "Совпадение по"
+msgstr ""
 
 #: models.py:42
 msgid ""
 "Video param to detected from if this command should be used to convert given "
 "video"
 msgstr ""
-"Параметр для определения конвертируемого файла по его имени или расширению"
 
 #: models.py:46
 msgid "RegExp to match video file"
-msgstr "Регулярное выражение"
+msgstr ""
 
 #: models.py:49
-#, fuzzy
 msgid "Enabled?"
-msgstr "Активная"
+msgstr ""
 
 #: models.py:53
 msgid "System command to convert video"
-msgstr "Команда для конвертации видео"
+msgstr ""
 
 #: models.py:59 models.py:128
 msgid "Without dot: `.`"
-msgstr "Без точки: `.`"
+msgstr ""
 
 #: models.py:66
 msgid "Video convert command"
-msgstr "Команда для конвертации видео"
+msgstr ""
 
 #: models.py:67
 msgid "Video convert commands"
-msgstr "Команды для конвертации видео"
+msgstr ""
 
 #: models.py:71
 msgid "Pending convert"
-msgstr "Ожидает конвертации"
+msgstr ""
 
 #: models.py:72
 msgid "Convert started"
-msgstr "Конвертация начата"
+msgstr ""
 
 #: models.py:73
 msgid "Converted"
-msgstr "Сконвертировано"
+msgstr ""
 
 #: models.py:74
 msgid "Not converted due to error"
-msgstr "Не сконвертировано из-за ошибки"
+msgstr ""
 
 #: models.py:83
 msgid "Title"
-msgstr "Название"
+msgstr ""
 
 #: models.py:86
 msgid "Video file"
-msgstr "Видео файл"
+msgstr ""
 
 #: models.py:90
 msgid "Thumbnail image"
-msgstr "Миниатюра"
+msgstr ""
 
 #: models.py:95
 msgid "Description"
-msgstr "Описание"
+msgstr ""
 
 #: models.py:99
 msgid "Created time"
-msgstr "Создано"
+msgstr ""
 
 #: models.py:104
 msgid "Video conversion status"
-msgstr "Статус конвертации"
+msgstr ""
 
 #: models.py:109
 msgid "Convert time"
-msgstr "Время конвертации"
+msgstr ""
 
 #: models.py:113
 msgid "Message from last converting command"
-msgstr "Вывод последней команды конвертации"
+msgstr ""
 
 #: models.py:117
 msgid "Uploaded by"
-msgstr "Загружено"
+msgstr ""
 
 #: models.py:121
 msgid "Meta info about original video"
-msgstr "Метаинформация об исходном видео"
+msgstr ""
 
 #: models.py:150
 msgid "Video"
-msgstr "Видео"
+msgstr ""
