@@ -55,4 +55,4 @@ So execute this command as many times as video is.
 Now you may reference on `django_ffmpeg.Video` model from other or get it directly.
 
 ## Todo
-* Translation
+* Refactoring thumbnail command
