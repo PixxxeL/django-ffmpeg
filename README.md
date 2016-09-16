@@ -4,7 +4,7 @@ Download and encode video files by using ffmpeg utilit
 ## Authors
 
 The original version is created by [Alrusdi](https://github.com/alrusdi/).
-Making separate application, refactoring and further development [pixxxel](https://github.com/pixxxel/)
+Modify, making separate application, refactoring and further development [pixxxel](https://github.com/pixxxel/)
 
 ## Install
 
