@@ -16,5 +16,14 @@ setup(
     classifiers = [
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-    ]
+    ],
+    package_data = {
+        'django_ffmpeg': [
+            'locale/*/LC_MESSAGES/*',
+            'management/*.py',
+            'management/commands/*.py',
+            'migrations/*.py',
+        ],
+    },
+    include_package_data = True,
 )
