@@ -13,7 +13,7 @@ from django.conf import settings
 from django.utils.encoding import smart_text
 
 from django_ffmpeg.models import Video, ConvertingCommand
-from django_ffmpeg.defaults import FFMPEG_CONVERTER
+from django_ffmpeg.defaults import FFMPEG_CONVERTER, FFMPEG_LOGGING_FILE_PATH
 
 
 class Command(BaseCommand):
@@ -120,9 +120,9 @@ class Command(BaseCommand):
         handler.setFormatter(fmt)
         self._log.addHandler(handler)
         self._log.setLevel(logging.INFO)
-        #if settings.LOGGING_FILE_PATH:
-        #    handler = logging.FileHandler(settings.LOGGING_FILE_PATH)
-        #    fmt = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-        #    handler.setFormatter(fmt)
-        #    self._log.addHandler(handler)
+        if FFMPEG_LOGGING_FILE_PATH:
+            handler = logging.FileHandler(FFMPEG_LOGGING_FILE_PATH)
+            fmt = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+            handler.setFormatter(fmt)
+            self._log.addHandler(handler)
 
