@@ -91,6 +91,10 @@ class Video(models.Model):
         upload_to=thumb_file_path,
         null=True, blank=True,
     )
+    thumb_frame = models.PositiveIntegerField(
+        verbose_name=_('Frame number for thumbnail'),
+        default=0,
+    )
     description = models.TextField(
         verbose_name=_('Description'),
         null=True, blank=True,

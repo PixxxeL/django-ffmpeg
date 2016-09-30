@@ -79,10 +79,11 @@ class Command(BaseCommand):
 
         try:
             if not video.thumb:
-                cmd = '%(app)s -hide_banner -nostats -i %(in_file)s -frames:v 1 -ss 0 %(out_file)s' % {
-                    'app':FFMPEG_CONVERTER,
-                    'in_file':filepath,
-                    'out_file':video.thumb_video_path,
+                cmd = '%(app)s -hide_banner -nostats -i %(in_file)s -y -frames:v 1 -ss %(thumb_frame) %(out_file)s' % {
+                    'app'         : FFMPEG_CONVERTER,
+                    'in_file'     : filepath,
+                    'out_file'    : video.thumb_video_path,
+                    'thumb_frame' : video.thumb_frame,
                 }
                 self._cli(cmd, True)
                 self._log.info('Create thumbnail command: %(cmd)s' % {'cmd':cmd})
