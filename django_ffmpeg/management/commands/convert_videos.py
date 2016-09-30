@@ -84,7 +84,7 @@ class Command(BaseCommand):
                     'in_file':filepath,
                     'out_file':video.thumb_video_path,
                 }
-                self._cli(c, True)
+                self._cli(cmd, True)
                 self._log.info('Create thumbnail command: %(cmd)s' % {'cmd':cmd})
         except:
             pass
