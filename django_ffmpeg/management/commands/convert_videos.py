@@ -13,7 +13,7 @@ from django.conf import settings
 from django.utils.encoding import smart_text
 
 from django_ffmpeg.models import Video, ConvertingCommand
-from django_ffmpeg.defaults import FFMPEG_CONVERTER, FFMPEG_LOGGING_FILE_PATH
+from django_ffmpeg.defaults import FFMPEG_LOGGING_FILE_PATH
 
 
 class Command(BaseCommand):
@@ -79,8 +79,7 @@ class Command(BaseCommand):
 
         try:
             if not video.thumb:
-                cmd = '%(app)s -hide_banner -nostats -i %(in_file)s -y -frames:v 1 -ss %(thumb_frame) %(out_file)s' % {
-                    'app'         : FFMPEG_CONVERTER,
+                cmd = cmd.thumb_command % {
                     'in_file'     : filepath,
                     'out_file'    : video.thumb_video_path,
                     'thumb_frame' : video.thumb_frame,
