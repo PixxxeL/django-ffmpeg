@@ -8,9 +8,8 @@ import datetime
 import time
 import os
 
-from django.core.management.base import BaseCommand
 from django.conf import settings
-from django.utils.encoding import smart_text
+from django.core.management.base import BaseCommand
 
 from django_ffmpeg.models import Video, ConvertingCommand
 from django_ffmpeg.defaults import FFMPEG_LOGGING_FILE_PATH
@@ -90,7 +89,7 @@ class Command(BaseCommand):
             pass
 
         video.convert_status = 'converted'
-        video.last_convert_msg = smart_text(output)
+        video.last_convert_msg = repr(output).replace('\\n', '\n').strip('\'')
         video.converted_at = datetime.datetime.now()
         video.save()
         self._log.info('Job finished at: %(time)s s\n' % {'time':time.time() - start})
