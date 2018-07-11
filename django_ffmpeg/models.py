@@ -85,6 +85,7 @@ class Video(models.Model):
     title = models.CharField(
         max_length=500,
         verbose_name=_('Title'),
+        null=True, blank=True,
     )
     video = models.FileField(
         verbose_name=_('Video file'),
@@ -152,7 +153,7 @@ class Video(models.Model):
         return re.sub(r'[^\.]{1,10}$', 'jpg', filepath)
 
     def __unicode__(self):
-        return self.title
+        return self.title or u'Without title #%s' % self.pk
 
     class Meta:
         verbose_name = _('Video')
