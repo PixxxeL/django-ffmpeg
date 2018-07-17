@@ -67,7 +67,6 @@ class Converter(object):
             raise
 
         # Convert thumb
-        print 'video.thumb', video.thumb
         try:
             if not video.thumb:
                 cmd = cmd.thumb_command % {
@@ -75,7 +74,6 @@ class Converter(object):
                     'out_file'    : video.thumb_video_path,
                     'thumb_frame' : video.thumb_frame,
                 }
-                print 'cmd', cmd
                 self._cli(cmd, True)
                 logger.info('Creating thumbnail command: %s' % cmd)
         except:
