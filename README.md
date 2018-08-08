@@ -1,4 +1,5 @@
 # Django ffmpeg
+
 Download and encode video files by using `ffmpeg` utilit or any another (?) command line tool.
 
 ## Authors
@@ -13,6 +14,7 @@ pip install django-ffmpeg
 ```
 
 Create structure in MEDIA_ROOT directory:
+
 ```
 videos
   |- orig
@@ -28,6 +30,7 @@ Add `'django_ffmpeg'` to `INSTALLED_APPS` and execute `python manage.py migrate`
 
 You must have [Ffmpeg](https://ffmpeg.org/) (or any other) utilit for converting video.
 Possible get it for Ubuntu as:
+
 ```shell
 sudo add-apt-repository ppa:mc3man/trusty-media
 sudo apt-get update
@@ -42,10 +45,12 @@ Obviously, Django must have.
 
 For converting video set the command(s) to `ConvertingCommand` model
 for example:
+
 ```shell
 >>> from django_ffmpeg.models import ConvertingCommand
 >>> ConvertingCommand(match_by='name', match_regex='.*', command='/usr/bin/ffmpeg -hide_banner -nostats -i %(input_file)s -target film-dvd %(output_file)s', convert_extension='mp4').save()
 ```
+
 Fragments `%(input_file)s` and `%(output_file)s` in `command` is required.
 
 After this you must run `python manage.py convert_videos` or set it to crontab.
