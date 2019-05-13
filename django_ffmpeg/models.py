@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-import os
 import re
 from uuid import uuid4
 
@@ -67,8 +64,8 @@ class ConvertingCommand(models.Model):
         return self.command[0:50]
 
     class Meta:
-        verbose_name = _(u'Video convert command')
-        verbose_name_plural = _(u'Video convert commands')
+        verbose_name = _('Video convert command')
+        verbose_name_plural = _('Video convert commands')
 
 
 VIDEO_CONVERSION_STATUS_CHOICES = (
@@ -125,6 +122,7 @@ class Video(models.Model):
         User,
         verbose_name=_('Uploaded by'),
         editable=False,
+        on_delete=models.CASCADE,
     )
     meta_info = models.TextField(
         verbose_name=_('Meta info about original video'),
@@ -153,7 +151,7 @@ class Video(models.Model):
         return re.sub(r'[^\.]{1,10}$', 'jpg', filepath)
 
     def __unicode__(self):
-        return self.title or u'Without title #%s' % self.pk
+        return self.title or 'Without title #%s' % self.pk
 
     class Meta:
         verbose_name = _('Video')

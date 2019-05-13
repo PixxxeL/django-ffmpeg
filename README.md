@@ -60,4 +60,5 @@ So execute this command as many times as video is.
 Now you may reference on `django_ffmpeg.Video` model from other or get it directly.
 
 ## Todo
+* Add converting error output to `last_convert_msg`
 * Refactoring thumbnail command

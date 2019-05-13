@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import logging
 import time
 
@@ -14,7 +12,7 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
 
     args = 'no arguments'
-    help = u'Converts unconverted video'
+    help = 'Converts unconverted video'
 
     def handle(self, *args, **options):
         start = time.time()

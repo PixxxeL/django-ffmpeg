@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 import logging
 import os
@@ -62,7 +60,7 @@ class Converter(object):
         except Exception as e:
             logger.error('Converting video error', exc_info=True)
             video.convert_status = 'error'
-            video.last_convert_msg = u'Exception while converting'
+            video.last_convert_msg = 'Exception while converting'
             video.save()
             raise
 
