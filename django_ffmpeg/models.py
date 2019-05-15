@@ -60,7 +60,7 @@ class ConvertingCommand(models.Model):
         help_text = 'Example: /usr/bin/ffmpeg -hide_banner -nostats -i %(in_file)s -y -frames:v 1 -ss %(thumb_frame)s %(out_file)s',
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.command[0:50]
 
     class Meta:
@@ -150,7 +150,7 @@ class Video(models.Model):
         filepath = filepath.replace(FFMPEG_ORIG_VIDEO, FFMPEG_THUMB_VIDEO)
         return re.sub(r'[^\.]{1,10}$', 'jpg', filepath)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title or 'Without title #%s' % self.pk
 
     class Meta:
