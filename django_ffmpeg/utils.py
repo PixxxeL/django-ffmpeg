@@ -1,6 +1,5 @@
 import datetime
 import logging
-import os
 import re
 
 from django_ffmpeg.models import Video, ConvertingCommand
@@ -84,11 +83,17 @@ class Converter(object):
 
 
     def _cli(self, cmd, without_output=False):
-        if os.name == 'posix':
+        import os
+        import subprocess
+        import sys
+        if sys.version_info[0] > 2:
+            res = subprocess.getstatusoutput(cmd)
+            if without_output and res and len(res):
+                return res[1]
+        elif os.name == 'posix':
             import commands
             return commands.getoutput(cmd)
         else:
-            import subprocess
             if without_output:
                 DEVNULL = open(os.devnull, 'wb')
                 subprocess.Popen(cmd, stdout=DEVNULL, stderr=DEVNULL)
