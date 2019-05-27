@@ -48,18 +48,27 @@ for example:
 
 ```shell
 >>> from django_ffmpeg.models import ConvertingCommand
->>> ConvertingCommand(match_by='name', match_regex='.*', command='/usr/bin/ffmpeg -hide_banner -nostats -i %(input_file)s -target film-dvd %(output_file)s', convert_extension='mp4').save()
+>>> ConvertingCommand(
+	match_by='name',
+	match_regex='.*',
+	command='ffmpeg -y -hide_banner -nostats -i %(input_file)s -threads 0 -xerror %(output_file)s',
+	convert_extension='mp4',
+	thumb_command='ffmpeg -hide_banner -nostats -i %(in_file)s -y -frames:v 1 -ss %(thumb_frame)s %(out_file)s'
+).save()
 ```
 
 Fragments `%(input_file)s` and `%(output_file)s` in `command` is required.
 
+Fragments `%(in_file)s` and `%(thumb_frame)s` in `thumb_command` is required.
+
+Option `-xerror ` is required for except ffmpeg conversion error to convert_status.
+
 After this you must run `python manage.py convert_videos` or set it to crontab.
-Command convert one unprocessed video at time.
-So execute this command as many times as video is.
+Command is convert only one unconverted video at time.
+So execute this command as many times as unconverted videos is it.
 
 Now you may reference on `django_ffmpeg.Video` model from other or get it directly.
 
 ## Todo
-* Converting output is lose
-* Add converting error output to `last_convert_msg`
-* Refactoring thumbnail command
+* Autocreate media directories
+* Refactoring utils.Converter

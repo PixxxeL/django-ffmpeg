@@ -76,7 +76,9 @@ class Converter(object):
         except:
             logger.error('Converting thumb error', exc_info=True)
 
-        video.convert_status = 'converted'
+        video.convert_status = 'error' \
+            if output and output.find('Conversion failed') != -1 \
+            else 'converted'
         video.last_convert_msg = repr(output).replace('\\n', '\n').strip('\'')
         video.converted_at = datetime.datetime.now(tz=timezone('UTC'))
         video.save()
@@ -88,7 +90,7 @@ class Converter(object):
         import sys
         if sys.version_info[0] > 2:
             res = subprocess.getstatusoutput(cmd)
-            if without_output and res and len(res):
+            if not without_output and res and len(res):
                 return res[1]
         elif os.name == 'posix':
             import commands

@@ -6,7 +6,7 @@ from .models import ConvertingCommand, Video
 
 
 def reconvert_video(modeladmin, request, queryset):
-    queryset.update(convert_status='pending')
+    queryset.update(convert_status='pending', last_convert_msg='')
 reconvert_video.short_description = _('Convert again')
 
 
