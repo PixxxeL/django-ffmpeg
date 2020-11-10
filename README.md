@@ -1,11 +1,10 @@
 # Django ffmpeg
 
-Download and encode video files by using `ffmpeg` utilit or any another (?) command line tool.
+Download and re-encode video files by using `ffmpeg` utilit or any another (?) command line tool.
 
 ## Authors
 
-The original version is created by [Alrusdi](https://github.com/alrusdi/).
-Modify, making separate application, refactoring and further development [pixxxel](https://github.com/pixxxel/)
+The original version is created by [Alrusdi](https://github.com/alrusdi/). Modify, making separate application, refactoring and further development [pixxxel](https://github.com/pixxxel/)
 
 ## Install
 
@@ -13,22 +12,23 @@ Modify, making separate application, refactoring and further development [pixxxe
 pip install django-ffmpeg
 ```
 
-Create structure in MEDIA_ROOT directory:
+Optionally in `settings.py` set directories names (`FFMPEG_PRE_DIR`, `FFMPEG_ORIG_VIDEO`, `FFMPEG_THUMB_VIDEO`, `FFMPEG_CONV_VIDEO`) for video files. Structure in MEDIA_ROOT by default is:
 
 ```
-videos
-  |- orig
-  |- thumb
-  |- conv
+media
+  ├ ...
+  └ videos
+    ├ conv
+    ├ orig
+    └ thumb
 ```
-or set another existing directory names by `FFMPEG_PRE_DIR`, `FFMPEG_ORIG_VIDEO`,
-`FFMPEG_THUMB_VIDEO`, `FFMPEG_CONV_VIDEO` in `settings.py`.
 
 Add `'django_ffmpeg'` to `INSTALLED_APPS` and execute `python manage.py migrate`
 
 ## Dependencies
 
 You must have [Ffmpeg](https://ffmpeg.org/) (or any other) utilit for converting video.
+
 Possible get it for Ubuntu as:
 
 ```shell
@@ -63,12 +63,11 @@ Fragments `%(in_file)s` and `%(thumb_frame)s` in `thumb_command` is required.
 
 Option `-xerror ` is required for except ffmpeg conversion error to convert_status.
 
-After this you must run `python manage.py convert_videos` or set it to crontab.
-Command is convert only one unconverted video at time.
-So execute this command as many times as unconverted videos is it.
+After this you must run `python manage.py convert_videos` or set it to crontab. Command is convert only one unconverted video at time. So execute this command as many times as unconverted videos is it.
 
 Now you may reference on `django_ffmpeg.Video` model from other or get it directly.
 
 ## Todo
-* Autocreate media directories
+
 * Refactoring utils.Converter
+* Add Celery task
