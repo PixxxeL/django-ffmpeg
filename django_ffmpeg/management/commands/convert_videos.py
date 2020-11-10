@@ -16,5 +16,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         start = time.time()
-        Converter().convert()
+        Converter().convert_first_pending()
         logger.info('Job finished at: %s s' % (time.time() - start))
