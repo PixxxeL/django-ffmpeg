@@ -11,15 +11,23 @@ from django_ffmpeg.defaults import *
 
 def filename_normalize(filename):
     ext = filename.split('.')[-1]
-    return '%s.%s' % (uuid4().hex, ext)
+    return '%s.%s' % (uuid4().hex, ext,)
 
 
 def video_file_path(instance, filename):
-    return '%s/%s/%s' % (FFMPEG_PRE_DIR, FFMPEG_ORIG_VIDEO, filename_normalize(filename),)
+    return '%s/%s/%s' % (
+        FFMPEG_PRE_DIR,
+        FFMPEG_ORIG_VIDEO,
+        filename_normalize(filename),
+    )
 
 
 def thumb_file_path(instance, filename):
-    return '%s/%s/%s' % (FFMPEG_PRE_DIR, FFMPEG_THUMB_VIDEO, filename_normalize(filename),)
+    return '%s/%s/%s' % (
+        FFMPEG_PRE_DIR,
+        FFMPEG_THUMB_VIDEO,
+        filename_normalize(filename),
+    )
 
 
 CONVERTING_COMMAND_MATCH_CHOICES = (
@@ -152,6 +160,15 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title or 'Without title #%s' % self.pk
+
+    def save(self, *args, **kwargs):
+        if not self.title:
+            try:
+                name = '.'.join(self.video.name.split('/')[-1].split('.')[:-1])
+                self.title = name
+            except:
+                pass
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('Video')
