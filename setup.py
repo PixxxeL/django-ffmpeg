@@ -19,6 +19,7 @@ setup(
     ],
     package_data = {
         'django_ffmpeg': [
+            'fixtures/*.json',
             'locale/*/LC_MESSAGES/*',
             'management/*.py',
             'management/commands/*.py',

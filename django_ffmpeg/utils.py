@@ -23,8 +23,6 @@ class Converter(object):
         if not video:
             logger.info('No video found. Bypassing call...')
             return
-        video.convert_status = 'started'
-        video.save()
         cmd = self.choose_convert_command(video)
         if not cmd:
             logger.error('Conversion command not found...')
@@ -81,6 +79,8 @@ class Converter(object):
 
     def convert_video_file(self, cmd, video):
         """"""
+        video.convert_status = 'started'
+        video.save()
         video.convert_extension = cmd.convert_extension
         try:
             c = cmd.command % {

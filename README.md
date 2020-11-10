@@ -57,6 +57,12 @@ for example:
 ).save()
 ```
 
+or add fixture:
+
+```shell
+python manage.py loaddata django-ffmpeg-init
+```
+
 Fragments `%(input_file)s` and `%(output_file)s` in `command` is required.
 
 Fragments `%(in_file)s` and `%(thumb_frame)s` in `thumb_command` is required.

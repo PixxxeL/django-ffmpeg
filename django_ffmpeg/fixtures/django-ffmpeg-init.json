@@ -1,0 +1,15 @@
+[
+{
+    "model": "django_ffmpeg.convertingcommand",
+    "pk": 1,
+    "fields": {
+        "title": "Standard",
+        "match_by": "name",
+        "match_regex": ".*",
+        "is_enabled": true,
+        "command": "ffmpeg -y -hide_banner -nostats -i %(input_file)s -vcodec libx264 -crf 25 -threads 0 -strict -2 %(output_file)s",
+        "convert_extension": "mp4",
+        "thumb_command": "ffmpeg -y -hide_banner -nostats -i %(in_file)s -frames:v 1 -ss %(thumb_frame)s %(out_file)s"
+    }
+}
+]
