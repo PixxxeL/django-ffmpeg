@@ -39,6 +39,11 @@ class ConvertingCommand(models.Model):
     '''
     System commands for convertion videos to desired format
     '''
+    title = models.CharField(
+        max_length=64,
+        verbose_name=_('Title'),
+        null=True, blank=True,
+    )
     match_by = models.CharField(
         max_length=50,
         verbose_name=_('Match by'),
@@ -69,7 +74,7 @@ class ConvertingCommand(models.Model):
     )
 
     def __str__(self):
-        return self.command[0:50]
+        return self.title or self.command[0:50]
 
     class Meta:
         verbose_name = _('Video convert command')
