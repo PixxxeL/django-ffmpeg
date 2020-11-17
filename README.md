@@ -72,3 +72,19 @@ Option `-xerror ` is required for except ffmpeg conversion error to convert_stat
 After this you must run `python manage.py convert_videos` or set it to crontab. Command is convert only one unconverted video at time. So execute this command as many times as unconverted videos is it.
 
 Now you may reference on `django_ffmpeg.Video` model from other or get it directly.
+
+If you're using Celery, you may invoke task for convert concrete video:
+
+```python
+from django_ffmpeg.tasks import convert_video
+
+convert_video.delay(command_id, video_id)
+```
+
+or for convert last uncoverted:
+
+```python
+from django_ffmpeg.tasks import convert_first_pending
+
+convert_first_pending.delay()
+```
