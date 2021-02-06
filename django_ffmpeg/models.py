@@ -3,7 +3,6 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from django_ffmpeg.defaults import *
@@ -132,7 +131,7 @@ class Video(models.Model):
         verbose_name=_('Message from last converting command'),
     )
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         verbose_name=_('Uploaded by'),
         editable=False,
         on_delete=models.CASCADE,
