@@ -1,6 +1,6 @@
 import logging
 
-from celery.task import task
+from celery import shared_task
 from django.db import connections
 
 from django_ffmpeg.models import (
@@ -13,7 +13,7 @@ from django_ffmpeg.utils import Converter
 logger = logging.getLogger(__name__)
 
 
-@task(time_limit=7200)
+@shared_task(time_limit=7200)
 def convert_video(command_id, video_id):
     command = ConvertingCommand.objects.get(pk=command_id)
     video = Video.objects.get(pk=video_id)
@@ -27,7 +27,7 @@ def convert_video(command_id, video_id):
     connections.close_all() # dubious step for fix Celery beat problem
 
 
-@task(time_limit=7200) # replace this to settings
+@shared_task(time_limit=7200) # replace this to settings
 def convert_first_pending():
     Converter().convert_first_pending()
     connections.close_all() # dubious step for fix Celery beat problem
