@@ -10,7 +10,7 @@ setup(
     author_email = 'ivan.n.sergeev@gmail.com',
     maintainer = 'pixel',
     maintainer_email = 'ivan.n.sergeev@gmail.com',
-    license = 'GPL3',
+    license = 'MIT',
     description = 'Download and encode video files by using ffmpeg utilit',
     download_url = 'https://github.com/pixxxel/django-ffmpeg/archive/master.zip',
     classifiers = [
