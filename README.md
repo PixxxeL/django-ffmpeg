@@ -1,6 +1,8 @@
 # Django ffmpeg
 
-Download and re-encode video files by using `ffmpeg` utilit or any another (?) command line tool.
+Download and re-encode video files by using `ffmpeg` utilit or any another command line tool.
+
+Since **0.0.7** version support **Django 2** and above only.
 
 ## Authors
 
